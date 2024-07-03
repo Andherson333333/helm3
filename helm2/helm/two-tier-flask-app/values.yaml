@@ -75,6 +75,7 @@ pdb:
   minAvailable: 1
 
 mysqlCluster:
+  tlsUseSelfSigned: false
   enabled: true
   instances: 1
   routerInstances: 1
