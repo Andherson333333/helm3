@@ -2,9 +2,9 @@
 apiVersion: mysql.oracle.com/v2
 kind: InnoDBCluster
 metadata:
-  name: {{ include "two-tier-flask-app.fullname" . }}-db
+  name: {{ include "two-tier-flask-app.fullname" . | trunc 23 }}-db
 spec:
-  secretName: {{ include "two-tier-flask-app.fullname" . }}
+  secretName: {{ include "two-tier-flask-app.fullname" . | trunc 27 }}
   instances: {{ .Values.mysqlCluster.instances }}
   router:
     instances: {{ .Values.mysqlCluster.routerInstances }}
@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "two-tier-flask-app.fullname" . }}-mysql-init
+  name: {{ include "two-tier-flask-app.fullname" . | trunc 23 }}-mysql-init
 data:
   init.sql: |
     {{ .Values.mysqlCluster.initSQL | nindent 4 }}
@@ -28,7 +28,7 @@ data:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ include "two-tier-flask-app.fullname" . }}-mysql-pv
+  name: {{ include "two-tier-flask-app.fullname" . | trunc 23 }}-mysql-pv
 spec:
   capacity:
     storage: {{ .Values.mysqlCluster.storage.capacity }}
